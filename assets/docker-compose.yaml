@@ -83,7 +83,6 @@ services:
       - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
-      - BACKEND_URL=${BACKEND_URL}
       - EXPRESS_SECRET=${EXPRESS_SECRET}
       - SESSION_SECRET=${EXPRESS_SECRET}
       - SANDBOX_MODE=false

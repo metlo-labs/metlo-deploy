@@ -82,12 +82,14 @@ def write_env(quiet):
     express_secret = gen_secret(32)
     redis_password = gen_secret(16)
     license_key = get_license_key(quiet)
+    jwt_key = b64encode(secrets.token_bytes(256)).decode("UTF-8")
     init_env_file = f"""
 ENCRYPTION_KEY="{encryption_key}"
 EXPRESS_SECRET="{express_secret}"
 REDIS_PASSWORD="{redis_password}"
 NUM_WORKERS=2
 LICENSE_KEY="{license_key}"
+JWT_KEY="{jwt_key}"
     """.strip()
     with open(ENV_PATH, "w") as f:
         f.write(init_env_file)

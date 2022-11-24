@@ -116,7 +116,6 @@ services:
     restart: unless-stopped
     environment:
       - BACKEND_URL=http://backend:8080
-      - NEXT_PUBLIC_LOCAL_AUTH=true
     ports:
       - 8000:3000
 

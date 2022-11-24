@@ -8,6 +8,10 @@ if ! command_present wget && command_present yum; then
   sudo yum install wget
 fi
 
+if ! command_present wget && command_present apt; then
+  sudo apt install wget
+fi
+
 if ! command_present docker; then
   wget -qO- https://get.docker.com/ | sh
 fi

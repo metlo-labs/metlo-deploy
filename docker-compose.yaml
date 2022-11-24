@@ -1,0 +1,130 @@
+version: "3.9"
+
+services:
+  trace-writer:
+    image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-trace-writer
+    command: node -r tsconfig-paths/register dist/write-truncated-traces.js
+    depends_on:
+      - cache
+    restart: unless-stopped
+    environment:
+      - SINGLE_TENANT=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - TS_NODE_BASEURL=./dist/
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - PARQUET_DATA_PATH=/var/lib/trace_data
+    volumes:
+      - traces:/var/lib/trace_data
+  attack-analyzer:
+    image: metlo/enterprise-attack-analyzer:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-attack-analyzer
+    command: node -r tsconfig-paths/register dist/attack-analyzer.js
+    depends_on:
+      - cache
+    restart: unless-stopped
+    environment:
+      - SINGLE_TENANT=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - TS_NODE_BASEURL=./dist/
+      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - PARQUET_DATA_PATH=/var/lib/trace_data
+    volumes:
+      - traces:/var/lib/trace_data
+  db:
+    image: postgres:14.4-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init_db.sql
+  ingestor:
+    image: metlo/enterprise-backend:${DOCKER_IMAGE_TAG:-latest}
+    command: yarn start-collector
+    container_name: metlo-enterprise-ingestor
+    depends_on:
+      - db
+      - cache
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    environment:
+      - SINGLE_TENANT=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - NODE_OPTIONS=--openssl-legacy-provider
+      - RUN_MIGRATION=true
+    volumes:
+      - ./metlo-config.yaml:/usr/src/app/backend/metlo-config.yaml
+  cache:
+    image: redis:7.0.4
+    restart: always
+    command: redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - cache:/data
+  backend:
+    image: metlo/enterprise-backend:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-backend
+    restart: unless-stopped
+    depends_on:      
+      - db
+      - cache
+    ports:
+      - 8080:8080
+    environment:
+      - SINGLE_TENANT=true
+      - ALLOW_LOCAL_AUTH=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
+      - BACKEND_URL=${BACKEND_URL}
+      - EXPRESS_SECRET=${EXPRESS_SECRET}
+      - SESSION_SECRET=${EXPRESS_SECRET}
+      - SANDBOX_MODE=false
+  jobs:
+    image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-jobs
+    depends_on:
+      - ingestor
+    restart: unless-stopped
+    environment:
+      - SINGLE_TENANT=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - DISABLE_LOGGING_STATS=${DISABLE_LOGGING_STATS:-false}
+  analyzer:
+    image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-analyzer
+    command: yarn start-analyzer
+    depends_on:
+      - ingestor
+    restart: unless-stopped
+    environment:
+      - SINGLE_TENANT=true
+      - LICENSE_KEY=${LICENSE_KEY}
+      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - NUM_WORKERS=${NUM_WORKERS}
+  frontend:
+    image: metlo/enterprise-frontend:${DOCKER_IMAGE_TAG:-latest}
+    container_name: metlo-enterprise-frontend
+    restart: unless-stopped
+    environment:
+      - BACKEND_URL=http://backend:8080
+      - NEXT_PUBLIC_LOCAL_AUTH=true
+    ports:
+      - 3000:3000
+
+volumes:
+  db:
+    driver: local
+  cache:
+    driver: local
+  traces:
+    driver: local

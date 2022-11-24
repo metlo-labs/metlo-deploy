@@ -31,7 +31,7 @@ class DockerLogin(object):
             if len(license_keys) == 0:
                 raise Exception("No license key found")
             license_key = license_keys[0]
-            regex = r"LICENSE_KEY=\'(.*)\'"
+            regex = r"LICENSE_KEY=[\'\"](.*)[\'\"]"
             matches = re.findall(regex, license_key, re.MULTILINE)
             req = Request(
                 f"https://backend.metlo.com/license-key/docker?licenseKey={matches[0]}",

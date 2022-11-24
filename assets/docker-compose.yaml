@@ -118,7 +118,7 @@ services:
       - BACKEND_URL=http://backend:8080
       - NEXT_PUBLIC_LOCAL_AUTH=true
     ports:
-      - 3000:3000
+      - 8000:3000
 
 volumes:
   db:

@@ -1,5 +1,3 @@
-
-
 #!/usr/bin/env python3
 
 import argparse
@@ -10,7 +8,6 @@ import subprocess
 import os
 import urllib.request
 from urllib.request import Request, urlopen
-import time
 import json
 import re
 

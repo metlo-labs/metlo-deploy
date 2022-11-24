@@ -9,7 +9,7 @@ if ! command_present wget && command_present yum; then
 fi
 
 if ! command_present wget && command_present apt; then
-  sudo apt install wget
+  sudo apt install wget -y
 fi
 
 if ! command_present docker; then

@@ -12,3 +12,12 @@
 **This repo contains the deploy scripts for Metlo Self Hosted.**
 
 Go to [https://my.metlo.com](https://my.metlo.com) to get a license key and deploy Metlo in your own cloud!
+
+You can use one of the one-click deploy buttons or follow the instructions below:
+
+```bash
+export LICENSE_KEY=<YOUR_LICENSE_KEY>
+wget https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh
+chmod +x deploy.sh
+sudo -E ./deploy.sh
+```

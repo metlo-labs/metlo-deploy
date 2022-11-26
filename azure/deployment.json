@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "5368542823133894261"
+      "templateHash": "6141107969228694601"
     }
   },
   "parameters": {
@@ -260,10 +260,12 @@
         "publisher": "Microsoft.OSTCExtensions",
         "type": "CustomScriptForLinux",
         "typeHandlerVersion": "1.2",
-        "protectedSettings": {
+        "settings": {
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh"
-          ],
+          ]
+        },
+        "protectedSettings": {
           "commandToExecute": "[join(createArray('sudo LICENSE_KEY=', parameters('licenseKey'), ' /bin/bash deploy.sh'), '')]"
         }
       },

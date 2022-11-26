@@ -5,6 +5,9 @@ var adminUsername = 'azureuser'
 
 var authenticationType = 'sshPublicKey'
 
+@description('License Key for Metlo. Get yours at my.metlo.com')
+param licenseKey string
+
 @description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
 @secure()
 param adminPasswordOrKey string
@@ -14,7 +17,7 @@ var dnsLabelPrefix = toLower('${vmName}-${uniqueString(resourceGroup().id)}')
 @description('Location for all resources. Leave as default to take value from resource group')
 param location string = resourceGroup().location
 
-var vmSize = 'Standard_D2ads_v5'
+var vmSize = 'Standard_D2ps_v5'
 
 var virtualNetworkName = 'metloVNet'
 
@@ -215,7 +218,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]
-      commandToExecute: 'sudo /bin/bash deploy.sh'
+      commandToExecute: join([ 'sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }
   }
 }

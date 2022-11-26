@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "11485052035855179022"
+      "templateHash": "2792488438205927963"
     }
   },
   "parameters": {
@@ -14,6 +14,12 @@
       "defaultValue": "Metlo-Manager",
       "metadata": {
         "description": "Name for the Metlo Instance"
+      }
+    },
+    "licenseKey": {
+      "type": "string",
+      "metadata": {
+        "description": "License Key for Metlo. Get yours at my.metlo.com"
       }
     },
     "adminPasswordOrKey": {
@@ -34,7 +40,7 @@
     "adminUsername": "azureuser",
     "authenticationType": "sshPublicKey",
     "dnsLabelPrefix": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id)))]",
-    "vmSize": "Standard_D2ads_v5",
+    "vmSize": "Standard_D2ps_v5",
     "virtualNetworkName": "metloVNet",
     "subnetName": "metloSubnet",
     "networkSecurityGroupName": "metloSecGroupNet",
@@ -247,7 +253,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh"
           ],
-          "commandToExecute": "sudo /bin/bash deploy.sh"
+          "commandToExecute": "[join(createArray('sudo LICENSE_KEY=', parameters('licenseKey'), ' /bin/bash deploy.sh'), '')]"
         }
       },
       "dependsOn": [

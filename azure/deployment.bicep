@@ -6,6 +6,7 @@ var adminUsername = 'azureuser'
 var authenticationType = 'sshPublicKey'
 
 @description('License Key for Metlo. Get yours at my.metlo.com')
+@secure()
 param licenseKey string
 
 @description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
@@ -214,7 +215,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     publisher: 'Microsoft.OSTCExtensions'
     type: 'CustomScriptForLinux'
     typeHandlerVersion: '1.2'
-    settings: {
+    protectedSettings: {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]

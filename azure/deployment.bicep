@@ -22,7 +22,7 @@ param location string = resourceGroup().location
 @allowed([ 'Standard_D2ps_v5', 'Standard_B2ms', 'Standard_D2as_v5' ])
 param vmSize string = 'Standard_D2ps_v5'
 
-var virtualNetworkName = 'metloVNet'
+var virtualNetworkName = join([ vmName, 'metloVNet' ], '-')
 
 var subnetName = 'metloSubnet'
 

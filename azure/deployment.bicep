@@ -208,8 +208,8 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   }
 }
 
-resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
-  name: format('{0}/{1}', vmName, customDataName)
+resource script1 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
+  name: format('{0}/{1}1', vmName, customDataName)
   location: location
   dependsOn: [ vm ]
   properties: {
@@ -218,10 +218,25 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     typeHandlerVersion: '1.2'
     settings: {
       fileUris: [
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
       ]
-      commandToExecute: join([ 'sudo ./setup_python.sh && ', 'sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
+      commandToExecute: 'sudo ./setup_python.sh'
+    }
+  }
+}
+resource script2 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
+  name: format('{0}/{1}2', vmName, customDataName)
+  location: location
+  dependsOn: [ vm ]
+  properties: {
+    publisher: 'Microsoft.OSTCExtensions'
+    type: 'CustomScriptForLinux'
+    typeHandlerVersion: '1.2'
+    settings: {
+      fileUris: [
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'        
+      ]
+      commandToExecute: join(['sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }
   }
 }

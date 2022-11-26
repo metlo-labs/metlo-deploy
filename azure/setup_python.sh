@@ -1,3 +1,4 @@
+#!/bin/bash -xve
 sudo apt-get remove python3.6 -y
 sudo apt-get update
 sudo apt-get install software-properties-common -y

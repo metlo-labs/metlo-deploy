@@ -1,5 +1,5 @@
 @description('Name for the Metlo Instance')
-param vmName string = join([ 'Metlo-Manager', uniqueString(resourceGroup().id) ], '-')
+param vmName string = join([ 'Metlo-Manager', uniqueString(newGuid()) ], '-')
 
 var adminUsername = 'azureuser'
 

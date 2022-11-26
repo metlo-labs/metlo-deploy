@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "4173786061717580810"
+      "templateHash": "13734811105598552271"
     }
   },
   "parameters": {
@@ -34,13 +34,24 @@
       "metadata": {
         "description": "Location for all resources. Leave as default to take value from resource group"
       }
+    },
+    "vmSize": {
+      "type": "string",
+      "defaultValue": "Standard_D2ps_v5",
+      "allowedValues": [
+        "Standard_D2ps_v5",
+        "Standard_B2ms",
+        "Standard_D2as_v5"
+      ],
+      "metadata": {
+        "description": "VM Type to use"
+      }
     }
   },
   "variables": {
     "adminUsername": "azureuser",
     "authenticationType": "sshPublicKey",
     "dnsLabelPrefix": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id)))]",
-    "vmSize": "Standard_D2ps_v5",
     "virtualNetworkName": "metloVNet",
     "subnetName": "metloSubnet",
     "networkSecurityGroupName": "metloSecGroupNet",
@@ -206,7 +217,7 @@
       "properties": {
         "userData": "",
         "hardwareProfile": {
-          "vmSize": "[variables('vmSize')]"
+          "vmSize": "[parameters('vmSize')]"
         },
         "storageProfile": {
           "osDisk": {

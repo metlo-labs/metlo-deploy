@@ -18,7 +18,9 @@ var dnsLabelPrefix = toLower('${vmName}-${uniqueString(resourceGroup().id)}')
 @description('Location for all resources. Leave as default to take value from resource group')
 param location string = resourceGroup().location
 
-var vmSize = 'Standard_D2ps_v5'
+@description('VM Type to use')
+@allowed([ 'Standard_D2ps_v5', 'Standard_B2ms', 'Standard_D2as_v5' ])
+param vmSize string = 'Standard_D2ps_v5'
 
 var virtualNetworkName = 'metloVNet'
 

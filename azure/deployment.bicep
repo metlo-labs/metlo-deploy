@@ -217,7 +217,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     typeHandlerVersion: '2.1'
     protectedSettings: {
       fileUris: [
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/deploy.sh'        
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'        
       ]
       commandToExecute: join([ 'sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }

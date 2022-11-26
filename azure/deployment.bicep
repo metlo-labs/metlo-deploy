@@ -208,8 +208,8 @@ resource vm 'Microsoft.Compute/virtualMachines@2021-11-01' = {
   }
 }
 
-resource script1 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
-  name: format('{0}/{1}1', vmName, customDataName)
+resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
+  name: format('{0}/{1}', vmName, customDataName)
   location: location
   dependsOn: [ vm ]
   properties: {
@@ -219,45 +219,13 @@ resource script1 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     settings: {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh'
-      ]
-      commandToExecute: 'sudo ./delete_python.sh'
-    }
-  }
-}
-
-resource script2 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
-  name: format('{0}/{1}2', vmName, customDataName)
-  location: location
-  dependsOn: [ vm ]
-  properties: {
-    publisher: 'Microsoft.OSTCExtensions'
-    type: 'CustomScriptForLinux'
-    typeHandlerVersion: '1.2'
-    settings: {
-      fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]
-      commandToExecute: 'sudo ./setup_python.sh'
-    }
-  }
-}
-resource script3 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
-  name: format('{0}/{1}3', vmName, customDataName)
-  location: location
-  dependsOn: [ vm ]
-  properties: {
-    publisher: 'Microsoft.OSTCExtensions'
-    type: 'CustomScriptForLinux'
-    typeHandlerVersion: '1.2'
-    settings: {
-      fileUris: [
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'        
-      ]
-      commandToExecute: join(['sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
+      commandToExecute: join([ 'sudo ./delete_python.sh && sudo ./setup_python.sh && sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }
   }
 }
 
 output adminUsername string = adminUsername
 output hostname string = publicIP.properties.dnsSettings.fqdn
-output sshCommand string = 'ssh ${adminUsername}@${publicIP.properties.dnsSettings.fqdn}'

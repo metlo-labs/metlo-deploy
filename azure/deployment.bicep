@@ -218,14 +218,31 @@ resource script1 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     typeHandlerVersion: '1.2'
     settings: {
       fileUris: [
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh'
+      ]
+      commandToExecute: 'sudo ./delete_python.sh'
+    }
+  }
+}
+
+resource script2 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
+  name: format('{0}/{1}2', vmName, customDataName)
+  location: location
+  dependsOn: [ vm ]
+  properties: {
+    publisher: 'Microsoft.OSTCExtensions'
+    type: 'CustomScriptForLinux'
+    typeHandlerVersion: '1.2'
+    settings: {
+      fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
       ]
       commandToExecute: 'sudo ./setup_python.sh'
     }
   }
 }
-resource script2 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
-  name: format('{0}/{1}2', vmName, customDataName)
+resource script3 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
+  name: format('{0}/{1}3', vmName, customDataName)
   location: location
   dependsOn: [ vm ]
   properties: {

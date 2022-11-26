@@ -1,5 +1,6 @@
 #!/bin/bash -xve
-sudo apt-get remove python3.6 -y
+pyenv install 3.8.15
+pyenv global 3.8.15
 sudo apt-get update
 sudo apt-get install software-properties-common -y
 sudo add-apt-repository ppa:deadsnakes/ppa -y

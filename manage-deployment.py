@@ -44,7 +44,7 @@ class DockerLogin(object):
                 subprocess.run(
                     ["docker", "login", "-u", username, "--password-stdin"],
                     input=pwd,
-                    text=True,
+                    universal_newlines=True,
                 )
 
     def __exit__(self, *args, **kwargs):

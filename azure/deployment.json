@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "7244218656199170661"
+      "templateHash": "11224778019350884910"
     }
   },
   "parameters": {
@@ -264,7 +264,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/deploy.sh"
           ],
-          "commandToExecute": "[join(createArray('sudo LICENSE_KEY=', parameters('licenseKey'), ' /bin/bash manage.sh'), '')]"
+          "commandToExecute": "[join(createArray('sudo LICENSE_KEY=', parameters('licenseKey'), ' /bin/bash deploy.sh'), '')]"
         }
       },
       "dependsOn": [

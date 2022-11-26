@@ -219,7 +219,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     settings: {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/2Fazure_enterprise_deployment/azure/setup_python.sh'
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
       ]
       commandToExecute: join([ 'sudo ./setup_python.sh && ', 'sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }

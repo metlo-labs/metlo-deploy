@@ -28,7 +28,6 @@ var subnetName = 'metloSubnet'
 var networkSecurityGroupName = join([ vmName, 'metloSecGroupNet' ], '-')
 
 var customDataName = 'metloPostDeploymentScript'
-// var customData = '[base64("sudo metlo init-env && sudo metlo update && sudo metlo start")]'
 
 var publicIPAddressName = '${vmName}PublicIP'
 var networkInterfaceName = '${vmName}NetInt'
@@ -213,10 +212,10 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
   location: location
   dependsOn: [ vm ]
   properties: {
-    publisher: 'Microsoft.OSTCExtensions'
-    type: 'CustomScriptForLinux'
-    typeHandlerVersion: '1.2'
-    settings: {
+    publisher: 'Microsoft.Azure.Extensions'
+    type: 'CustomScript'
+    typeHandlerVersion: '2.1'
+    protectedSettings: {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/manager.sh'
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh'

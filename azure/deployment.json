@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "4018168539866180892"
+      "templateHash": "2069939545384889813"
     }
   },
   "parameters": {
@@ -257,10 +257,10 @@
       "name": "[format('{0}/{1}', parameters('vmName'), variables('customDataName'))]",
       "location": "[parameters('location')]",
       "properties": {
-        "publisher": "Microsoft.OSTCExtensions",
-        "type": "CustomScriptForLinux",
-        "typeHandlerVersion": "1.2",
-        "settings": {
+        "publisher": "Microsoft.Azure.Extensions",
+        "type": "CustomScript",
+        "typeHandlerVersion": "2.1",
+        "protectedSettings": {
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/manager.sh",
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh",

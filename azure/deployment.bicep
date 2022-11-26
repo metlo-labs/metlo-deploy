@@ -215,7 +215,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]
-      commandToExecute: 'sudo /bin/bash deploy_script.sh'
+      commandToExecute: 'sudo /bin/bash deploy.sh'
     }
   }
 }

@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "6964095008849016682"
+      "templateHash": "668028356825429365"
     }
   },
   "parameters": {
@@ -247,7 +247,7 @@
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh"
           ],
-          "commandToExecute": "sudo /bin/bash deploy_script.sh"
+          "commandToExecute": "sudo /bin/bash deploy.sh"
         }
       },
       "dependsOn": [

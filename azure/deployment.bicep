@@ -218,11 +218,12 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     typeHandlerVersion: '1.2'
     settings: {
       fileUris: [
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/manager.sh'
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh'
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]
-      commandToExecute: join([ 'sudo ./delete_python.sh && sudo ./setup_python.sh && sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
+      commandToExecute: join([ 'sudo LICENSE_KEY=', licenseKey, ' manager.sh' ], '')
     }
   }
 }

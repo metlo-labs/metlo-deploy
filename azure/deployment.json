@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "12272282804353404091"
+      "templateHash": "2131404606276218897"
     }
   },
   "parameters": {
@@ -17,7 +17,7 @@
       }
     },
     "licenseKey": {
-      "type": "secureString",
+      "type": "string",
       "metadata": {
         "description": "License Key for Metlo. Get yours at my.metlo.com"
       }

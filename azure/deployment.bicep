@@ -6,7 +6,6 @@ var adminUsername = 'azureuser'
 var authenticationType = 'sshPublicKey'
 
 @description('License Key for Metlo. Get yours at my.metlo.com')
-@secure()
 param licenseKey string
 
 @description('SSH Key or password for the Virtual Machine. SSH key is recommended.')

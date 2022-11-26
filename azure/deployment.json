@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "9722188900503727961"
+      "templateHash": "13267919577609609365"
     }
   },
   "parameters": {
@@ -54,7 +54,7 @@
     "dnsLabelPrefix": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id)))]",
     "virtualNetworkName": "[join(createArray(parameters('vmName'), 'metloVNet'), '-')]",
     "subnetName": "metloSubnet",
-    "networkSecurityGroupName": "metloSecGroupNet",
+    "networkSecurityGroupName": "[join(createArray(parameters('vmName'), 'metloSecGroupNet'), '-')]",
     "customDataName": "metloPostDeploymentScript",
     "publicIPAddressName": "[format('{0}PublicIP', parameters('vmName'))]",
     "networkInterfaceName": "[format('{0}NetInt', parameters('vmName'))]",
@@ -263,9 +263,7 @@
         "settings": {
           "fileUris": [
             "https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh"
-          ]
-        },
-        "protectedSettings": {
+          ],
           "commandToExecute": "[join(createArray('sudo LICENSE_KEY=', parameters('licenseKey'), ' /bin/bash deploy.sh'), '')]"
         }
       },

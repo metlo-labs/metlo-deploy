@@ -26,7 +26,7 @@ var virtualNetworkName = join([ vmName, 'metloVNet' ], '-')
 
 var subnetName = 'metloSubnet'
 
-var networkSecurityGroupName = 'metloSecGroupNet'
+var networkSecurityGroupName = join([ vmName, 'metloSecGroupNet' ], '-')
 
 var customDataName = 'metloPostDeploymentScript'
 // var customData = '[base64("sudo metlo init-env && sudo metlo update && sudo metlo start")]'
@@ -221,8 +221,6 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
       fileUris: [
         'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
       ]
-    }
-    protectedSettings: {
       commandToExecute: join([ 'sudo LICENSE_KEY=', licenseKey, ' /bin/bash deploy.sh' ], '')
     }
   }

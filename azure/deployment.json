@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "668028356825429365"
+      "templateHash": "11485052035855179022"
     }
   },
   "parameters": {
@@ -34,7 +34,7 @@
     "adminUsername": "azureuser",
     "authenticationType": "sshPublicKey",
     "dnsLabelPrefix": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id)))]",
-    "vmSize": "Standard_B2s",
+    "vmSize": "Standard_D2ads_v5",
     "virtualNetworkName": "metloVNet",
     "subnetName": "metloSubnet",
     "networkSecurityGroupName": "metloSecGroupNet",

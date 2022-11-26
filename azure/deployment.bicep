@@ -111,7 +111,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '172.16.0.0/12'
           sourcePortRange: '*'
           destinationAddressPrefix: '*'
-          destinationPortRange: '8000'
+          destinationPortRange: '8081'
         }
       }
       {
@@ -124,7 +124,7 @@ resource nsg 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {
           sourceAddressPrefix: '192.168.0.0/16'
           sourcePortRange: '*'
           destinationAddressPrefix: '*'
-          destinationPortRange: '8000'
+          destinationPortRange: '8081'
         }
       }
     ]
@@ -217,10 +217,7 @@ resource script 'Microsoft.Compute/virtualMachines/extensions@2022-08-01' = {
     typeHandlerVersion: '2.1'
     protectedSettings: {
       fileUris: [
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/manager.sh'
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/delete_python.sh'
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/setup_python.sh'
-        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/deploy.sh'
+        'https://raw.githubusercontent.com/metlo-labs/metlo-deploy/azure_enterprise_deployment/azure/manager.sh'        
       ]
       commandToExecute: join([ 'sudo LICENSE_KEY=', licenseKey, ' manager.sh' ], '')
     }

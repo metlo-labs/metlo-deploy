@@ -5,13 +5,13 @@
     "_generator": {
       "name": "bicep",
       "version": "0.12.40.16777",
-      "templateHash": "13734811105598552271"
+      "templateHash": "5368542823133894261"
     }
   },
   "parameters": {
     "vmName": {
       "type": "string",
-      "defaultValue": "Metlo-Manager",
+      "defaultValue": "[join(createArray('Metlo-Manager', uniqueString(resourceGroup().id)), '-')]",
       "metadata": {
         "description": "Name for the Metlo Instance"
       }

@@ -87,6 +87,7 @@ services:
       - EXPRESS_SECRET=${EXPRESS_SECRET}
       - SESSION_SECRET=${EXPRESS_SECRET}
       - JWT_KEY=${JWT_KEY}
+      - SECURE_AUTH_COOKIE=${SECURE_AUTH_COOKIE:-true}
       - SANDBOX_MODE=false
   jobs:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}

@@ -7,6 +7,7 @@ import string
 import subprocess
 import os
 import urllib.request
+from urllib.parse import quote
 from urllib.request import Request, urlopen
 import json
 import re
@@ -34,7 +35,7 @@ class DockerLogin(object):
             regex = r"LICENSE_KEY=[\'\"](.*)[\'\"]"
             matches = re.findall(regex, license_key, re.MULTILINE)
             req = Request(
-                f"https://backend.metlo.com/license-key/docker?licenseKey={matches[0]}",
+                f"https://backend.metlo.com/license-key/docker?licenseKey={quote(matches[0])}",
                 method="GET",
             )
             with urlopen(req) as resp:

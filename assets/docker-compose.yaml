@@ -99,6 +99,7 @@ services:
       - SINGLE_TENANT=true
       - LICENSE_KEY=${LICENSE_KEY}
       - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - DISABLE_LOGGING_STATS=${DISABLE_LOGGING_STATS:-false}
   analyzer:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}

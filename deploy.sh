@@ -19,7 +19,7 @@ if ! command_present docker-compose; then
   sudo -E curl -L https://github.com/docker/compose/releases/download/1.29.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
 fi
-sudo docker service start
+sudo service docker start
 
 sudo mkdir /opt/metlo 
 sudo wget https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/manage-deployment.py -O /opt/metlo/manage-deployment.py

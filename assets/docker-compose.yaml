@@ -102,6 +102,7 @@ services:
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - DISABLE_LOGGING_STATS=${DISABLE_LOGGING_STATS:-false}
+      - RETENTION_HOURS=${RETENTION_HOURS}
   analyzer:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-analyzer

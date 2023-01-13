@@ -14,6 +14,7 @@ services:
       - TS_NODE_BASEURL=./dist/
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - PARQUET_DATA_PATH=/var/lib/trace_data
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
       - traces:/var/lib/trace_data
   attack-analyzer:
@@ -30,6 +31,7 @@ services:
       - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - PARQUET_DATA_PATH=/var/lib/trace_data
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
       - traces:/var/lib/trace_data
   db:
@@ -59,6 +61,7 @@ services:
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - NODE_OPTIONS=--openssl-legacy-provider
       - RUN_MIGRATION=true
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
       - ./metlo-config.yaml:/usr/src/app/backend/metlo-config.yaml
   cache:
@@ -89,6 +92,7 @@ services:
       - JWT_KEY=${JWT_KEY}
       - SECURE_AUTH_COOKIE=${SECURE_AUTH_COOKIE:-true}
       - SANDBOX_MODE=false
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
   jobs:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-jobs
@@ -102,7 +106,8 @@ services:
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - DISABLE_LOGGING_STATS=${DISABLE_LOGGING_STATS:-false}
-      - RETENTION_HOURS=${RETENTION_HOURS}
+      - RETENTION_HOURS=${RETENTION_HOURS:-1}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
   analyzer:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-analyzer
@@ -116,6 +121,7 @@ services:
       - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - NUM_WORKERS=${NUM_WORKERS}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
   frontend:
     image: metlo/enterprise-frontend:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-frontend

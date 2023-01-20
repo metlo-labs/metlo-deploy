@@ -93,6 +93,11 @@ services:
       - SECURE_AUTH_COOKIE=${SECURE_AUTH_COOKIE:-true}
       - SANDBOX_MODE=false
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - SMTP_SERVER=${SMTP_SERVER:-}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - EMAIL_SENDER=${EMAIL_SENDER:-}
+      - SELF_LINK=${SELF_LINK:-}
   jobs:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-jobs
@@ -108,6 +113,11 @@ services:
       - DISABLE_LOGGING_STATS=${DISABLE_LOGGING_STATS:-false}
       - RETENTION_HOURS=${RETENTION_HOURS:-1}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - SMTP_SERVER=${SMTP_SERVER:-}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - EMAIL_SENDER=${EMAIL_SENDER:-}
+      - SELF_LINK=${SELF_LINK:-}
   analyzer:
     image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-analyzer

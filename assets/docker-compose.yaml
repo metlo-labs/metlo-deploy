@@ -132,6 +132,11 @@ services:
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
       - NUM_WORKERS=${NUM_WORKERS}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - SMTP_SERVER=${SMTP_SERVER:-}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - EMAIL_SENDER=${EMAIL_SENDER:-}
+      - SELF_LINK=${SELF_LINK:-}
   frontend:
     image: metlo/enterprise-frontend:${DOCKER_IMAGE_TAG:-latest}
     container_name: metlo-enterprise-frontend

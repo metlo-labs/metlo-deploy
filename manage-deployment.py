@@ -49,6 +49,7 @@ class DockerLogin(object):
                 )
 
     def __exit__(self, *args, **kwargs):
+        subprocess.run(["docker","system","prune"])
         subprocess.run(["docker", "logout"])
 
 

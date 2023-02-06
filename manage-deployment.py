@@ -49,7 +49,6 @@ class DockerLogin(object):
                 )
 
     def __exit__(self, *args, **kwargs):
-        subprocess.run(["docker", "system", "prune"])
         subprocess.run(["docker", "logout"])
 
 
@@ -123,6 +122,10 @@ def pull_dockers():
             subprocess.run(["docker", "pull", f"metlo/enterprise-{e}"])
 
 
+def prune_docker():
+    subprocess.run(["docker", "system", "prune"])
+
+
 def init(quiet=False):
     if not os.path.exists(METLO_DIR):
         os.mkdir(METLO_DIR)
@@ -152,6 +155,7 @@ def update():
     stop()
     update_files()
     start()
+    prune_docker()
 
 
 def main():

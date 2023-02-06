@@ -123,7 +123,8 @@ def pull_dockers():
 
 
 def prune_docker():
-    subprocess.run(["docker", "system", "prune"])
+    print("Pruning existing docker images")
+    subprocess.run(["docker", "system", "prune","-f"])
 
 
 def init(quiet=False):

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export PATH=$PATH:/usr/local/bin
+
 command_present() {
   type "$1" >/dev/null 2>&1
 }

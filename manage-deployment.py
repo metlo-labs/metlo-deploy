@@ -122,6 +122,11 @@ def pull_dockers():
             subprocess.run(["docker", "pull", f"metlo/enterprise-{e}"])
 
 
+def prune_docker():
+    print("Pruning existing docker images")
+    subprocess.run(["docker", "system", "prune","-f"])
+
+
 def init(quiet=False):
     if not os.path.exists(METLO_DIR):
         os.mkdir(METLO_DIR)
@@ -151,6 +156,7 @@ def update():
     stop()
     update_files()
     start()
+    prune_docker()
 
 
 def main():

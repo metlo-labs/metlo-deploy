@@ -130,6 +130,7 @@ services:
       - LICENSE_KEY=${LICENSE_KEY}
       - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
       - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY}
       - NUM_WORKERS=${NUM_WORKERS}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
       - SMTP_SERVER=${SMTP_SERVER:-}

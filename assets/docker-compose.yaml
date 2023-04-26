@@ -1,39 +1,6 @@
 version: "3.9"
 
 services:
-  trace-writer:
-    image: metlo/enterprise-jobrunner:${DOCKER_IMAGE_TAG:-latest}
-    container_name: metlo-enterprise-trace-writer
-    command: node -r tsconfig-paths/register dist/write-truncated-traces.js
-    depends_on:
-      - cache
-    restart: unless-stopped
-    environment:
-      - SINGLE_TENANT=true
-      - LICENSE_KEY=${LICENSE_KEY}
-      - TS_NODE_BASEURL=./dist/
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
-      - PARQUET_DATA_PATH=/var/lib/trace_data
-      - LOG_LEVEL=${LOG_LEVEL:-INFO}
-    volumes:
-      - traces:/var/lib/trace_data
-  attack-analyzer:
-    image: metlo/enterprise-attack-analyzer:${DOCKER_IMAGE_TAG:-latest}
-    container_name: metlo-enterprise-attack-analyzer
-    command: node -r tsconfig-paths/register dist/attack-analyzer.js
-    depends_on:
-      - cache
-    restart: unless-stopped
-    environment:
-      - SINGLE_TENANT=true
-      - LICENSE_KEY=${LICENSE_KEY}
-      - TS_NODE_BASEURL=./dist/
-      - DB_URL=postgres://postgres:postgres@db:5432/metlo_api_security
-      - REDIS_URL=redis://:${REDIS_PASSWORD}@cache:6379
-      - PARQUET_DATA_PATH=/var/lib/trace_data
-      - LOG_LEVEL=${LOG_LEVEL:-INFO}
-    volumes:
-      - traces:/var/lib/trace_data
   db:
     image: postgres:14.4-alpine
     restart: unless-stopped
@@ -151,6 +118,4 @@ volumes:
   db:
     driver: local
   cache:
-    driver: local
-  traces:
     driver: local

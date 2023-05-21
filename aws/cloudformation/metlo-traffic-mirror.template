@@ -144,7 +144,7 @@
                                     ]
                                 },
                                 "[ ! -z $user_exists ] || echo 'ENABLE_VXLAN=true' | sudo tee -a /opt/metlo/credentials",
-                                "[ ! -z $user_exists ] || sudo wget https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/aws/govxlan/install.sh",
+                                "[ ! -z $user_exists ] || sudo wget https://raw.githubusercontent.com/metlo-labs/metlo-deploy/main/aws/mirroring/install.sh",
                                 "[ ! -z $user_exists ] || sudo chmod +x install.sh",
                                 "[ ! -z $user_exists ] || sudo -E ./install.sh",
                                 "sudo apt-get update -y",

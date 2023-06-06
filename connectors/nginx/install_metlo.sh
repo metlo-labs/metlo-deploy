@@ -52,11 +52,11 @@ fi
 
 S3_METLO_NGINX_BINDS_URL="https://metlo-releases.s3.us-west-2.amazonaws.com/metlo_nginx_module_amd64_"
 S3_METLO_NGINX_BINDS_URL=$S3_METLO_NGINX_BINDS_URL$OS
-S3_METLO_NGINX_BINDS_URL=$S3_METLO_NGINX_BINDS_URL"_latest"
+S3_METLO_NGINX_BINDS_URL=$S3_METLO_NGINX_BINDS_URL"_latest.so"
 
 S3_METLO_RUST_BINDS_URL="https://metlo-releases.s3.us-west-2.amazonaws.com/metlo_nginx_rust_bindings_amd64_"
 S3_METLO_RUST_BINDS_URL=$S3_METLO_RUST_BINDS_URL$OS
-S3_METLO_RUST_BINDS_URL=$S3_METLO_RUST_BINDS_URL"_latest"
+S3_METLO_RUST_BINDS_URL=$S3_METLO_RUST_BINDS_URL"_latest.so"
 
 apt-get update -y
 apt-get install curl -y

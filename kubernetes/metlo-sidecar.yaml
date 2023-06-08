@@ -1,0 +1,21 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: test-app 
+  labels:
+    app: test-app 
+spec:
+  containers:
+  - name: test-app 
+    image: hashicorp/http-echo:0.2.3
+    args:
+    - "-text=Hello World! This is a Metlo Kubernetes with kind App"
+  - name: metlo-sidecar
+    image: metlo/agent
+    securityContext:
+      privileged: true
+    env:
+      - name: METLO_HOST
+        value: https://app.metlo.com:8081
+      - name: METLO_KEY
+        value: <YOUR_METLO_API_KEY>

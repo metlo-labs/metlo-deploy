@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: metlo-app
+spec:
+  selector:
+    matchLabels:
+      name: metlo-app
+  template:
+    metadata:
+      labels:
+        name: metlo-app
+    spec:
+      hostNetwork: true
+      tolerations:
+        # this toleration is to have the daemonset runnable on master nodes
+        # remove it if your masters can't run pods
+        - key: node-role.kubernetes.io/master
+          effect: NoSchedule
+      containers:
+        - name: metlo-agent
+          image: metlo/agent
+          securityContext:
+            privileged: true
+          env:
+            - name: METLO_HOST
+              value: https://app.metlo.com:8081
+            - name: METLO_KEY
+              value: <YOUR_METLO_API_KEY>
+      # nodeSelector:
+      #   app: your-app

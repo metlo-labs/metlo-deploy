@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.19.5.34762",
-      "templateHash": "9227582795942477246"
+      "templateHash": "3665009084163703821"
     }
   },
   "parameters": {
@@ -18,6 +18,7 @@
     },
     "onboardingToken": {
       "type": "string",
+      "defaultValue": "<YOUR_TOKEN>",
       "metadata": {
         "description": "Onboarding Token"
       }

@@ -6,7 +6,7 @@ var adminUsername = 'azureuser'
 var authenticationType = 'sshPublicKey'
 
 @description('Onboarding Token')
-param onboardingToken string
+param onboardingToken string = '<YOUR_TOKEN>'
 
 @description('SSH Key or password for the Virtual Machine. SSH key is recommended.')
 @secure()

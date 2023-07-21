@@ -1,6 +1,6 @@
 {
     "AWSTemplateFormatVersion": "2010-09-09",
-    "Description": "Cloudformation Template for Metlo Traffic Mirroring.",
+    "Description": "Cloudformation Template for Metlo Honeypot.",
     "Metadata": {
         "AWS::CloudFormation::Designer": {
             "12d7e160-0a80-41e1-9076-14d9d321b425": {
